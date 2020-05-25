@@ -1,0 +1,6 @@
+{
+    "sketch": "esp32_wifi_bridge.ino",
+    "port": "COM9",
+    "board": "esp32:esp32:lolin32",
+    "configuration": "FlashFreq=80,PartitionScheme=default,CPUFreq=240,UploadSpeed=921600"
+}

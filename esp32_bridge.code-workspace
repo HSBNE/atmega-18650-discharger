@@ -1,0 +1,40 @@
+{
+	"folders": [
+		{
+			"path": "esp32_wifi_bridge"
+		},
+		{
+			"path": "libraries\\SimpleTimer"
+		},
+		{
+			"path": "libraries\\NTPClient"
+		},
+		{
+			"path": "libraries\\OSC"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"xlocale": "cpp",
+			"array": "cpp",
+			"vector": "cpp",
+			"xstring": "cpp",
+			"xutility": "cpp",
+			"string": "cpp",
+			"string_view": "cpp",
+			"sstream": "cpp",
+			"istream": "cpp",
+			"ostream": "cpp",
+			"fstream": "cpp",
+			"streambuf": "cpp",
+			"xlocbuf": "cpp",
+			"chrono": "cpp",
+			"xhash": "cpp",
+			"xtree": "cpp",
+			"algorithm": "cpp",
+			"memory": "cpp",
+			"optional": "cpp",
+			"random": "cpp"
+		}
+	}
+}
