@@ -1,0 +1,92 @@
+#######################################
+# avr-timer-lib
+# keywords.txt
+#
+# Syntax coloring map.
+#
+# @author: 	Rob Mertens
+# @date:	09/05/2017
+# @version:	1.1.1
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+t_alias				KEYWORD1
+t_mode				KEYWORD1
+t_interrupt		KEYWORD1
+t_channel			KEYWORD1
+t_inverted		KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+set						KEYWORD2
+reset					KEYWORD2
+hardReset			KEYWORD2
+setAlias			KEYWORD2
+initialize			KEYWORD2
+setPrescaler			KEYWORD2
+initialize			KEYWORD2
+setCompareValueA		KEYWORD2
+setCompareValueB		KEYWORD2
+setCompareValueC		KEYWORD2
+setDutyCycleA			KEYWORD2
+setDutyCycleB			KEYWORD2
+setDutyCycleC			KEYWORD2
+getCount			KEYWORD2
+getOverflows			KEYWORD2
+getNonResetCount		KEYWORD2
+getAlias			KEYWORD2
+getMode				KEYWORD2
+getInterruptMode		KEYWORD2
+getChannel			KEYWORD2
+getInverted			KEYWORD2
+
+#######################################
+# Objects and instances (KEYWORD3)
+#######################################
+
+Interrupt			KEYWORD3
+Handler				KEYWORD3
+Timer					KEYWORD3
+Timer8				KEYWORD3
+Timer16				KEYWORD3
+TimerFactory	KEYWORD3
+
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+NONE				LITERAL1
+T0				LITERAL1
+T1				LITERAL1
+T2				LITERAL1
+T3				LITERAL1
+T4				LITERAL1
+T5				LITERAL1
+TX				LITERAL1
+NORMAL				LITERAL1
+CTC				LITERAL1
+PWM_F				LITERAL1
+PWM_PC				LITERAL1
+PWM_FC				LITERAL1
+OVF				LITERAL1
+COMPA				LITERAL1
+COMPB				LITERAL1
+COMPC				LITERAL1
+A				LITERAL1
+B				LITERAL1
+B_TOP				LITERAL1
+C				LITERAL1
+C_TOP				LITERAL1
+AB				LITERAL1
+AC				LITERAL1
+BC				LITERAL1
+BC_TOP				LITERAL1
+ABC				LITERAL1
+NORMAL				LITERAL1
+INV				LITERAL1

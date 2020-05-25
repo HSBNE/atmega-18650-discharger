@@ -1,0 +1,7 @@
+{
+    "sketch": "atmega1280_15_socket_slave.ino",
+    "port": "COM11",
+    "board": "arduino:avr:mega",
+    "programmer": "Atmel JTAGICE3 (ISP mode)",
+    "configuration": "cpu=atmega1280"
+}

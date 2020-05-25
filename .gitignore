@@ -1,0 +1,2 @@
+# Do not upload SSID data to git!
+*.ssid.h
