@@ -1,0 +1,2409 @@
+[
+    {
+        "id": "48acc202.c19d3c",
+        "type": "tab",
+        "label": "Discharger",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "a4137f65.18f81",
+        "type": "udp in",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "iface": "",
+        "port": "9000",
+        "ipv": "udp4",
+        "multicast": "false",
+        "group": "",
+        "datatype": "buffer",
+        "x": 120,
+        "y": 160,
+        "wires": [
+            [
+                "d0225588.303278"
+            ]
+        ]
+    },
+    {
+        "id": "75057f3a.0f34c",
+        "type": "udp out",
+        "z": "48acc202.c19d3c",
+        "name": "AppOutput",
+        "addr": "10.1.1.101",
+        "iface": "",
+        "port": "9000",
+        "ipv": "udp4",
+        "outport": "",
+        "base64": false,
+        "multicast": "false",
+        "x": 1470,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "eeb07e34.2ed5e",
+        "type": "debug",
+        "z": "48acc202.c19d3c",
+        "name": "Raw Input",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 460,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "d0225588.303278",
+        "type": "function",
+        "z": "48acc202.c19d3c",
+        "name": "Split",
+        "func": "var txt = {};\ntxt.payload = msg.payload.toString();\n\nreturn [msg, txt];",
+        "outputs": 2,
+        "noerr": 0,
+        "x": 290,
+        "y": 160,
+        "wires": [
+            [
+                "d03b9b2a.9d7738"
+            ],
+            [
+                "eeb07e34.2ed5e"
+            ]
+        ]
+    },
+    {
+        "id": "d03b9b2a.9d7738",
+        "type": "osc",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "path": "",
+        "metadata": true,
+        "x": 450,
+        "y": 160,
+        "wires": [
+            [
+                "7fe11077.4d6ff",
+                "23b3e9a4.358ee6"
+            ]
+        ]
+    },
+    {
+        "id": "41c762f.53bf59c",
+        "type": "debug",
+        "z": "48acc202.c19d3c",
+        "name": "Formatted Voltage",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 1090,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "c0b90f51.79b08",
+        "type": "change",
+        "z": "48acc202.c19d3c",
+        "name": "Clean OSC",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "port",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "ip",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "fromip",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "_msgid",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "raw",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "address",
+                "pt": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "topic",
+                "pt": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload.packets",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload.timeTag",
+                "pt": "msg",
+                "to": "0",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 870,
+        "y": 160,
+        "wires": [
+            [
+                "41c762f.53bf59c",
+                "8839edfc.8ae1d"
+            ]
+        ]
+    },
+    {
+        "id": "c5299f79.df61f",
+        "type": "osc",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "path": "",
+        "metadata": false,
+        "x": 1290,
+        "y": 160,
+        "wires": [
+            [
+                "75057f3a.0f34c",
+                "e6bfe78e.078e28"
+            ]
+        ]
+    },
+    {
+        "id": "70a17f55.8d45b",
+        "type": "inject",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "topic": "/1/mah",
+        "payload": "tom",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 1120,
+        "y": 120,
+        "wires": [
+            [
+                "c5299f79.df61f"
+            ]
+        ]
+    },
+    {
+        "id": "e6bfe78e.078e28",
+        "type": "debug",
+        "z": "48acc202.c19d3c",
+        "name": "AppOutput(OSC)",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 1490,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "3efda533.020baa",
+        "type": "mqtt in",
+        "z": "48acc202.c19d3c",
+        "name": "Slot Empty",
+        "topic": "dis/empty",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "ef0acdbc.0b948",
+        "x": 120,
+        "y": 840,
+        "wires": [
+            [
+                "7c10e6c6.c3eaa8",
+                "12e4427b.9fff7e"
+            ]
+        ]
+    },
+    {
+        "id": "7c10e6c6.c3eaa8",
+        "type": "debug",
+        "z": "48acc202.c19d3c",
+        "name": "Incoming Scan",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 340,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "7fe11077.4d6ff",
+        "type": "function",
+        "z": "48acc202.c19d3c",
+        "name": "Split OSC + mqtt",
+        "func": "var slot = msg.payload[0].address.split('/')[1];\nvar topicData = { \"topic\" : \"/discharger/\" + slot,\n                  \"payload\" : [],\n                  \"slot\": slot };\n\ntopicData.payload =\n{\n    \"BatteryVoltage\": 0,\n    \"Current\": 0,\n    \"CurrentTotal\": 0,\n    \"RunTime\": 0,\n    \"Power\": 0,\n    \"PowerTotal\": 0,\n    \"SocketLoss\": 0,\n    \"Fault\": 0,\n    \"Complete\": 0,\n    \"Running\": 0,\n    \"deviceTime\": 0,\n    \"sampleTotal\": 0\n};\n\nvar isRunning = 0;\nvar runTime = 0;\nvar isComplete = 0;\n\n// Format the MQTT Topic and KvP correctly\nfor(let i = 0; i < msg.payload.length; i++)\n{\n    switch(msg.payload[i].address.split('/')[2]) {\n    case \"voltage\":\n        topicData.payload.BatteryVoltage = msg.payload[i].args.value;\n    \tbreak;\n    case \"current\":\n        topicData.payload.Current = msg.payload[i].args.value;\n    \tbreak;\n    case \"currentTot\":\n        topicData.payload.CurrentTotal = msg.payload[i].args.value;\n    \tbreak;\n    case \"runtime\":\n        topicData.payload.RunTime = msg.payload[i].args.value;\n        runTime = topicData.payload.RunTime;\n    \tbreak;\n    case \"running\":\n        topicData.payload.Running = msg.payload[i].args.value;\n        isRunning = topicData.payload.Running;\n    \tbreak;\n    case \"complete\":\n        topicData.payload.Complete = msg.payload[i].args.value\n        isComplete = topicData.payload.Complete;\n        break;\n    case \"power\":\n        topicData.payload.Power = msg.payload[i].args.value;\n    \tbreak;\n    case \"powerTot\":\n        topicData.payload.PowerTotal = msg.payload[i].args.value;\n    \tbreak;\n    case \"socketloss\":\n        topicData.payload.SocketLoss = msg.payload[i].args.value;\n        if (topicData.payload.SocketLoss >= 300) {\n            isFault = 1;\n        }\n    \tbreak;\n    case \"fault\":\n        topicData.payload.Fault = msg.payload[i].args.value;\n        if (topicData.payload.Fault) {\n            isFault = 1;\n        }\n        break;\n    case \"sampleTotal\":\n        topicData.payload.sampleTotal = msg.payload[i].args.value;\n        break;\n    case \"timestamp\":\n        topicData.payload.deviceTime = msg.payload[i].args.value;\n        break;\n    }\n}\n\n// Format the OSC message correctly\nfor(let i = 0; i < msg.payload.length; i++)\n{ \n    msg.payload[i].args = [msg.payload[i].args.value];\n}\n\nvar slots = flow.get(\"slot\",\"file\");\nvar running = flow.get(\"running\");\nvar hasFault = null;\n\nif (!running) {\n    running = [];\n}\n\n//if (isFault) {\n    var slotOffset = 0;\n    var slotName = \"/10/SocketLoss/\";\n    \n    if (slot > 20) {\n        slotName = \"/30/SocketLoss/\";\n        slotOffset = 20;\n    } else if (slot > 10) {\n        slotName = \"/20/SocketLoss/\";\n        slotOffset = 10;\n    } \n    slotOffset = slot - slotOffset;\n    var faultObj = {\"address\" : slotName + slotOffset,\n                    \"args\" : [ topicData.payload.SocketLoss ] };\n    \n    msg.payload.push(faultObj);\n//}\n\nrunning[slot-1] = (isRunning && runTime > 0);\n\nflow.set(\"running\", running );\n\nif (isRunning === 1 && runTime > 0 && slots[slot-1]) {\n    topicData.barcode = slots[slot-1];\n    \n    return [msg, topicData, topicData, null];\n} else if (isComplete && slots[slot-1] && topicData.payload.RunTime > 2000) {\n    topicData.barcode = slots[slot-1];\n\n    // Clear the slot barcode, we're done here\n    slots[slot-1] = \"\";\n    flow.set(\"slot\", slots, \"file\");\n\n    return [msg, null, topicData, topicData];\n} else {\n    return [msg, null, topicData, null];\n}\n",
+        "outputs": 4,
+        "noerr": 0,
+        "x": 650,
+        "y": 180,
+        "wires": [
+            [
+                "c0b90f51.79b08"
+            ],
+            [
+                "b2341830.a4c0a8"
+            ],
+            [
+                "fc566e35.c0439"
+            ],
+            [
+                "e94d8502.862178"
+            ]
+        ]
+    },
+    {
+        "id": "78dde2b2.9b0b6c",
+        "type": "mqtt in",
+        "z": "48acc202.c19d3c",
+        "name": "Slot Assign",
+        "topic": "dis/assign",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "ef0acdbc.0b948",
+        "x": 120,
+        "y": 960,
+        "wires": [
+            [
+                "7c10e6c6.c3eaa8",
+                "1f647c48.d5b224"
+            ]
+        ]
+    },
+    {
+        "id": "12e4427b.9fff7e",
+        "type": "change",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "slot",
+                "pt": "msg",
+                "to": "$number(msg.payload)",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 330,
+        "y": 840,
+        "wires": [
+            [
+                "21b185a7.94bfaa",
+                "1bd3fa89.e90b55"
+            ]
+        ]
+    },
+    {
+        "id": "1f647c48.d5b224",
+        "type": "switch",
+        "z": "48acc202.c19d3c",
+        "name": "last_empty scanned?",
+        "property": "last_empty",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "0",
+                "vt": "num"
+            },
+            {
+                "t": "eq",
+                "v": "0",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 360,
+        "y": 960,
+        "wires": [
+            [
+                "5674181b.2e3928",
+                "ac5040db.f20e7",
+                "8c6e4762.1aa578",
+                "ac4c904e.eafc1"
+            ],
+            [
+                "11e50ed9.ccf921",
+                "8c6e4762.1aa578"
+            ]
+        ]
+    },
+    {
+        "id": "23b3e9a4.358ee6",
+        "type": "debug",
+        "z": "48acc202.c19d3c",
+        "name": "Raw OSC",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 620,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "bcd399d0.651f88",
+        "type": "inject",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "topic": "dis/emptyF",
+        "payload": "4",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 490,
+        "y": 340,
+        "wires": [
+            [
+                "ff1cc946.aa9408"
+            ]
+        ]
+    },
+    {
+        "id": "ff1cc946.aa9408",
+        "type": "mqtt out",
+        "z": "48acc202.c19d3c",
+        "name": "Force Empty",
+        "topic": "dis/emptyF",
+        "qos": "",
+        "retain": "",
+        "broker": "ef0acdbc.0b948",
+        "x": 690,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "69ef694.13bc498",
+        "type": "inject",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "topic": "dis/assign",
+        "payload": "20Q-000000056",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 670,
+        "y": 460,
+        "wires": [
+            [
+                "75f68a77.6d3204"
+            ]
+        ]
+    },
+    {
+        "id": "75f68a77.6d3204",
+        "type": "mqtt out",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "broker": "ef0acdbc.0b948",
+        "x": 890,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "21b185a7.94bfaa",
+        "type": "debug",
+        "z": "48acc202.c19d3c",
+        "name": "Empty Slot",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 610,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "5674181b.2e3928",
+        "type": "debug",
+        "z": "48acc202.c19d3c",
+        "name": "Assign Slot",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 610,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "6ba637ad.8d8f78",
+        "type": "inject",
+        "z": "48acc202.c19d3c",
+        "name": "Setup Defaults",
+        "topic": "",
+        "payload": "[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 160,
+        "y": 1220,
+        "wires": [
+            [
+                "797de9c3.9ee158"
+            ]
+        ]
+    },
+    {
+        "id": "797de9c3.9ee158",
+        "type": "change",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "#:(file)::slot",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "last_empty",
+                "pt": "flow",
+                "to": "0",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "last_scan",
+                "pt": "flow",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 380,
+        "y": 1220,
+        "wires": [
+            [
+                "33cbc894.d46fa8"
+            ]
+        ]
+    },
+    {
+        "id": "ac5040db.f20e7",
+        "type": "function",
+        "z": "48acc202.c19d3c",
+        "name": "Set Slot from last_empty",
+        "func": "var slots = flow.get(\"slot\", \"file\");\nvar last_empty = flow.get(\"last_empty\");\nvar running = flow.get(\"running\");\n\n// Clear out any slots already assigned to this code\nfor(let i = 0; i < slots.length; i++)\n{\n    if (slots[i] == msg.payload) {\n        if (running[i]) {\n            return null;\n        }\n        slots[i] = \"\";\n    }\n}\n\nslots[last_empty-1] = msg.payload;\n\nflow.set(\"slot\", slots, \"file\");\n\nflow.set(\"last_empty\", 0);\nflow.set(\"entered_barcode\", \"\");\nflow.set(\"last_scan\", msg.payload);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 650,
+        "y": 960,
+        "wires": [
+            [
+                "cb7ea785.388ba8"
+            ]
+        ]
+    },
+    {
+        "id": "3c6b11fb.85455e",
+        "type": "influxdb batch",
+        "z": "48acc202.c19d3c",
+        "influxdb": "b62ae1a6.6cb94",
+        "precision": "s",
+        "retentionPolicy": "",
+        "name": "Bulk DB Sensors",
+        "x": 1130,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "b2341830.a4c0a8",
+        "type": "function",
+        "z": "48acc202.c19d3c",
+        "name": "Record Stream",
+        "func": "if (msg.slot && msg.barcode) {\n    msg.payload = [\n       {\n           measurement: \"discharger_buzz_slot_sensor\",\n           fields: msg.payload,\n           tags:{\n               slot: msg.slot,\n               barcode: msg.barcode\n           },\n           timestamp: new Date()\n       }\n    ];\n    \n    return msg;\n} else {\n    return null;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 880,
+        "y": 200,
+        "wires": [
+            [
+                "3c6b11fb.85455e",
+                "eab1209e.b9252"
+            ]
+        ]
+    },
+    {
+        "id": "eab1209e.b9252",
+        "type": "debug",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 1090,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "e94d8502.862178",
+        "type": "function",
+        "z": "48acc202.c19d3c",
+        "name": "Save Result",
+        "func": "  msg.payload = [\n   {\n       measurement: \"discharger_buzz_slot_result\",\n       fields: msg.payload,\n       tags:{\n           slot: msg.slot,\n           barcode: msg.barcode\n       },\n       timestamp: new Date()\n   }\n];\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 870,
+        "y": 280,
+        "wires": [
+            [
+                "3c6b11fb.85455e",
+                "eab1209e.b9252",
+                "cb7ea785.388ba8"
+            ]
+        ]
+    },
+    {
+        "id": "510aab46.a5c4d4",
+        "type": "ui_template",
+        "z": "48acc202.c19d3c",
+        "group": "90cb3ae0.c23638",
+        "name": "Barcode-Scan",
+        "order": 5,
+        "width": 7,
+        "height": 8,
+        "format": "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1, user-scalable=no\">\n<div>\n    <style>\n    #interactive.viewport {\n        position: relative;\n    }\n    #interactive.viewport > canvas, #interactive.viewport > video {\n        max-width: 100%;\n        width: 100%;\n    }\n    @media (-webkit-video-playable-inline) {\n        #interactive img { display: none; }\n        #interactive video { display: initial; }\n    }\n\t/* In order to place the tracking correctly */\n\tcanvas.drawing, canvas.drawingBuffer {\n\t\tposition: absolute;\n\t\tleft: 0;\n\t\ttop: 0;\n\t}\n    </style>\n    <div id=\"camzone\">\n        <!-- Div to show the scanner -->\n        \n        <div id=\"interactive\" class=\"viewport\">\n            <video autoplay=\"true\" preload=\"auto\" src=\"\" playsinline></video>\n        </div>\n        \n        <!-- Include the image-diff library -->\n        <script src=\"https://webrtc.github.io/adapter/adapter-latest.js\" type=\"text/javascript\"></script>\n        <script src=\"https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js\"></script>\n    \n        <script>\n            var _scannerIsRunning = false;\n            var _resultCollector;\n            var _lastCode = \"\";\n            var _storeScope;\n            \n            function testSend(obj, scope) {\n                console.log(\"In testit \" + obj);\n                scope.send({payload: obj});\n            }\n            \n            function sendObj(obj) {\n                console.log(\"Sending Object Raw \" + obj);\n                _storeScope.send(obj);\n            }\n            \n            (function(scope) {\n                _storeScope = scope;\n                scope.$watch('msg', function(msg) {\n                    if (msg) {\n                        if (msg.payload && msg.payload.localeCompare(\"scan_request\") === 0 ) {\n                            console.log(\"Starting Scanner On Request\");\n                            _lastCode = \"\";\n                            if (_scannerIsRunning) {\n                                Quagga.stop();\n                                _scannerIsRunning = false;\n                            } else {\n                                startScanner();\n                            }\n                        }\n                        if (msg.payload && msg.payload.localeCompare(\"clear_code\") === 0 ) {\n                            console.log(\"Clearing Last Scan\");\n                            _lastCode = \"\";\n                        }\n                    }\n                });\n            })(scope);\n            \n            function startScanner() {\n                Quagga.init({\n                    inputStream: {\n                        name: \"Live\",\n                        type: \"LiveStream\",\n                        target: document.querySelector('#interactive'),\n                        constraints: {\n                            width: 1080,\n                            height: 600,\n                            aspectRatio: { min: 1, max: 100 },\n                            facingMode: \"environment\"\n                        },\n                        area: { // defines rectangle of the detection/localization area\n                            top: \"25%\",    // top offset\n                            right: \"2%\",  // right offset\n                            left: \"2%\",   // left offset\n                            bottom: \"55%\"  // bottom offset\n                        }\n                    },\n                    locator: {\n                        patchSize: \"x-large\",\n                        halfSample: false\n                    },\n                    decoder: {\n                        readers: [\n                            \"code_39_reader\",\n                        ],\n                        config: {\n                            reader: \"code_39\",\n                            length: 12\n                        },\n                        debug: {\n                            showCanvas: true,\n                            showPatches: true,\n                            showFoundPatches: true,\n                            showSkeleton: true,\n                            showLabels: true,\n                            showPatchLabels: true,\n                            showRemainingPatchLabels: true,\n                            drawScanline: true,\n                            drawBoundingBox: true,\n                            showPattern: true,\n                            showFrequency: true,\n                            boxFromPatches: {\n                                showTransformed: true,\n                                showTransformedBox: true,\n                                showBB: true\n                            }\n                        }\n                    },\n                    locate: false,\n                    multiple: false\n                }, function (err) {\n                    if (err) {\n                        console.log(err);\n                        return\n                    }\n                    \n                    console.log(\"Initialization finished. Ready to start\");\n                    Quagga.start();\n                    \n                    // Set flag to is running\n                    _scannerIsRunning = true;\n                });\n    \n                Quagga.onProcessed(function (result) {\n                    var drawingCtx = Quagga.canvas.ctx.overlay,\n                    drawingCanvas = Quagga.canvas.dom.overlay;\n                    \n                    if (result.codeResult && result.codeResult.code) {\n                        console.log(\"Barcode detected and processed : [\" + result.codeResult.code + \"]\", result);\n                    }\n                    \n                    if (!drawingCanvas && !drawingCtx) {\n                        console.log(\"Unknown ctx crap\");\n                    }\n                    \n                    if (result) {\n                        if (result.boxes) {\n                            if (drawingCtx) {\n                                drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute(\"width\")), parseInt(drawingCanvas.getAttribute(\"height\")));\n                            }\n                            result.boxes.filter(function (box) {\n                                return box !== result.box;\n                            }).forEach(function (box) {\n                                Quagga.ImageDebug.drawPath(box, { x: 0, y: 1 }, drawingCtx, { color: \"green\", lineWidth: 2 });\n                            });\n                        }\n    \n                        if (result.box) {\n                            Quagga.ImageDebug.drawPath(result.box, { x: 0, y: 1 }, drawingCtx, { color: \"#00F\", lineWidth: 2 });\n                        }\n    \n                        if (result.codeResult && result.codeResult.code) {\n                            Quagga.ImageDebug.drawPath(result.line, { x: 'x', y: 'y' }, drawingCtx, { color: 'red', lineWidth: 3 });\n                        }\n                    }\n                });\n\n                Quagga.onDetected(function (result) {\n                    if (result.codeResult.format === \"code_39\" && result.codeResult.code.length === 12) {\n                        var barcode = result.codeResult.code;\n\n                        console.log(\"Barcode detected and processed : [\" + barcode + \"]\", result);\n                        \n                        if (barcode.length === 12 && barcode.localeCompare(_lastCode) != 0 ) {\n                            _lastCode = barcode.slice(0);\n                            \n                            if (barcode.startsWith(\"BUZZ-SLOT-\")) {\n                                var slot_num = parseInt(barcode.replace(/^.*?(\\d+).*/,'$1'),10);\n                                // Send this as a slot clear\n                                sendObj({ \"payload\": { \"slot_num\": slot_num }});\n                                \n                            } else {\n                                sendObj({ \"payload\": { \"barcode\": barcode }});\n                            }\n                            \n                            // Quagga.stop();\n                        }\n                    }\n                });\n            }\n        </script>\n    </div>\n</div>\n<script>\n\n</script>",
+        "storeOutMessages": false,
+        "fwdInMessages": false,
+        "templateScope": "local",
+        "x": 320,
+        "y": 600,
+        "wires": [
+            [
+                "e58470f6.5afea",
+                "edb7668f.fbe4d8"
+            ]
+        ]
+    },
+    {
+        "id": "e4bf124b.7f9c1",
+        "type": "ui_numeric",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "label": "Manual Slot",
+        "tooltip": "",
+        "group": "f66db85d.596c58",
+        "order": 1,
+        "width": 5,
+        "height": 1,
+        "wrap": true,
+        "passthru": false,
+        "topic": "dis/empty",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "30",
+        "step": 1,
+        "x": 130,
+        "y": 400,
+        "wires": [
+            [
+                "65ab8d27.270f44"
+            ]
+        ]
+    },
+    {
+        "id": "df20d39b.c3cbb",
+        "type": "ui_text_input",
+        "z": "48acc202.c19d3c",
+        "name": "Manual Barcode",
+        "label": "Battery Barcode",
+        "tooltip": "",
+        "group": "f66db85d.596c58",
+        "order": 4,
+        "width": 5,
+        "height": 1,
+        "passthru": false,
+        "mode": "text",
+        "delay": "0",
+        "topic": "dis/assign",
+        "x": 120,
+        "y": 500,
+        "wires": [
+            [
+                "cfa5b576.b7ec48"
+            ]
+        ]
+    },
+    {
+        "id": "9709247d.774488",
+        "type": "ui_button",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "group": "f66db85d.596c58",
+        "order": 3,
+        "width": 1,
+        "height": 1,
+        "passthru": true,
+        "label": "",
+        "tooltip": "Clear barcode from slot",
+        "color": "",
+        "bgcolor": "",
+        "icon": "clear",
+        "payload": "slot_clear_req",
+        "payloadType": "flow",
+        "topic": "dis/emptyF",
+        "x": 510,
+        "y": 400,
+        "wires": [
+            [
+                "ff1cc946.aa9408"
+            ]
+        ]
+    },
+    {
+        "id": "86fb89ef.e7b828",
+        "type": "ui_button",
+        "z": "48acc202.c19d3c",
+        "name": "bcAssign",
+        "group": "f66db85d.596c58",
+        "order": 6,
+        "width": 1,
+        "height": 1,
+        "passthru": true,
+        "label": "",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "add_box",
+        "payload": "entered_barcode",
+        "payloadType": "flow",
+        "topic": "dis/assign",
+        "x": 540,
+        "y": 500,
+        "wires": [
+            [
+                "f6892774.edd3d8"
+            ]
+        ]
+    },
+    {
+        "id": "cfa5b576.b7ec48",
+        "type": "change",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "entered_barcode",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 330,
+        "y": 500,
+        "wires": [
+            [
+                "86fb89ef.e7b828"
+            ]
+        ]
+    },
+    {
+        "id": "6e12ceb7.88372",
+        "type": "change",
+        "z": "48acc202.c19d3c",
+        "name": "Payload to Barcode",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.barcode",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 810,
+        "y": 580,
+        "wires": [
+            [
+                "a5eea13.552776",
+                "c8c0a7a6.83e458"
+            ]
+        ]
+    },
+    {
+        "id": "e58470f6.5afea",
+        "type": "debug",
+        "z": "48acc202.c19d3c",
+        "name": "All output data",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 360,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "65ab8d27.270f44",
+        "type": "change",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "slot_clear_req",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d0b623c0.50607",
+        "type": "change",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 660,
+        "y": 740,
+        "wires": [
+            [
+                "df20d39b.c3cbb"
+            ]
+        ]
+    },
+    {
+        "id": "edb7668f.fbe4d8",
+        "type": "switch",
+        "z": "48acc202.c19d3c",
+        "name": "Barcode?",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "hask",
+                "v": "barcode",
+                "vt": "str"
+            },
+            {
+                "t": "hask",
+                "v": "slot_num",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 600,
+        "y": 600,
+        "wires": [
+            [
+                "6e12ceb7.88372"
+            ],
+            [
+                "620a8bfc.b7fca4"
+            ]
+        ]
+    },
+    {
+        "id": "620a8bfc.b7fca4",
+        "type": "change",
+        "z": "48acc202.c19d3c",
+        "name": "Payload to slot_num",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.slot_num",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 820,
+        "y": 620,
+        "wires": [
+            [
+                "d23651c6.0fc4a",
+                "5e57e315.c365ac"
+            ]
+        ]
+    },
+    {
+        "id": "1bd3fa89.e90b55",
+        "type": "function",
+        "z": "48acc202.c19d3c",
+        "name": "Clear Slot",
+        "func": "var running = flow.get(\"running\");\nvar slots = flow.get(\"slot\", \"file\");\nvar slot = parseInt(msg.slot);\n\n// Cannot null out a running job\nif (!msg.force && running && slots[slot-1] !== \"\" && running[slot-1]) {\n    return null;\n} \n\nflow.set(\"last_empty\", slot);\n\nvar last_empty = flow.get(\"last_empty\");\n\nslots[last_empty-1] = \"\";\n\nflow.set(\"slot\", slots, \"file\");\n\nflow.set(\"entered_barcode\", \"\");\n\nmsg.payload = slot;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 600,
+        "y": 840,
+        "wires": [
+            [
+                "d0b623c0.50607",
+                "cb7ea785.388ba8",
+                "adc706fa.e27c38"
+            ]
+        ]
+    },
+    {
+        "id": "c568c56e.edb768",
+        "type": "inject",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "topic": "",
+        "payload": "scan_request",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 110,
+        "y": 620,
+        "wires": [
+            [
+                "510aab46.a5c4d4"
+            ]
+        ]
+    },
+    {
+        "id": "d23651c6.0fc4a",
+        "type": "debug",
+        "z": "48acc202.c19d3c",
+        "name": "clr_slot_scan",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 1050,
+        "y": 620,
+        "wires": []
+    },
+    {
+        "id": "a5eea13.552776",
+        "type": "debug",
+        "z": "48acc202.c19d3c",
+        "name": "assign_bs_scan",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 1060,
+        "y": 580,
+        "wires": []
+    },
+    {
+        "id": "522ba8e5.81a8d8",
+        "type": "inject",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "topic": "",
+        "payload": "clear_code",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 120,
+        "y": 580,
+        "wires": [
+            [
+                "510aab46.a5c4d4"
+            ]
+        ]
+    },
+    {
+        "id": "5e57e315.c365ac",
+        "type": "mqtt out",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "topic": "dis/empty",
+        "qos": "",
+        "retain": "",
+        "broker": "ef0acdbc.0b948",
+        "x": 1040,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "c8c0a7a6.83e458",
+        "type": "mqtt out",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "topic": "dis/assign",
+        "qos": "",
+        "retain": "",
+        "broker": "ef0acdbc.0b948",
+        "x": 1040,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "f6892774.edd3d8",
+        "type": "switch",
+        "z": "48acc202.c19d3c",
+        "name": "bc empty?",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "nempty"
+            },
+            {
+                "t": "empty"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 710,
+        "y": 500,
+        "wires": [
+            [
+                "75f68a77.6d3204"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "11e50ed9.ccf921",
+        "type": "change",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "last_scan",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 630,
+        "y": 1080,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "33cbc894.d46fa8",
+        "type": "function",
+        "z": "48acc202.c19d3c",
+        "name": "Clear Slot",
+        "func": "var running = [];\n\nrunning[3] = true;\nrunning[29] = false;\nrunning[1] = false;\nrunning[2] = false;\nrunning[0] = false;\n\nflow.set(\"running\",running);\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 560,
+        "y": 1220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e3a93bf8.bd64f8",
+        "type": "ui_text_input",
+        "z": "48acc202.c19d3c",
+        "name": "Last Battery Scan",
+        "label": "Last Barcode",
+        "tooltip": "",
+        "group": "90cb3ae0.c23638",
+        "order": 2,
+        "width": 3,
+        "height": 1,
+        "passthru": false,
+        "mode": "text",
+        "delay": "0",
+        "topic": "",
+        "x": 1110,
+        "y": 1000,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "db5255ab.f7c5f8",
+        "type": "ui_text_input",
+        "z": "48acc202.c19d3c",
+        "name": "Last Slot Scan",
+        "label": "Next Slot",
+        "tooltip": "",
+        "group": "90cb3ae0.c23638",
+        "order": 3,
+        "width": 2,
+        "height": 1,
+        "passthru": true,
+        "mode": "number",
+        "delay": "0",
+        "topic": "dis/assign",
+        "x": 1060,
+        "y": 780,
+        "wires": [
+            [
+                "b9f4b08d.b52bd"
+            ]
+        ]
+    },
+    {
+        "id": "63ab061c.9102c8",
+        "type": "ui_button",
+        "z": "48acc202.c19d3c",
+        "name": "En Scanner",
+        "group": "90cb3ae0.c23638",
+        "order": 1,
+        "width": 1,
+        "height": 1,
+        "passthru": false,
+        "label": "",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "center_focus_weak",
+        "payload": "scan_request",
+        "payloadType": "str",
+        "topic": "",
+        "x": 870,
+        "y": 880,
+        "wires": [
+            [
+                "510aab46.a5c4d4"
+            ]
+        ]
+    },
+    {
+        "id": "4bc013f4.f9c83c",
+        "type": "mqtt in",
+        "z": "48acc202.c19d3c",
+        "name": "Slot Empty Force",
+        "topic": "dis/emptyF",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "ef0acdbc.0b948",
+        "x": 140,
+        "y": 780,
+        "wires": [
+            [
+                "85b9b141.55e2a"
+            ]
+        ]
+    },
+    {
+        "id": "85b9b141.55e2a",
+        "type": "change",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "force",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 340,
+        "y": 780,
+        "wires": [
+            [
+                "12e4427b.9fff7e"
+            ]
+        ]
+    },
+    {
+        "id": "1cf16d20.df02e3",
+        "type": "ui_template",
+        "z": "48acc202.c19d3c",
+        "group": "f66db85d.596c58",
+        "name": "Barcode Assignment",
+        "order": 7,
+        "width": 7,
+        "height": 10,
+        "format": "<style>\n th {\n text-decoration: underline;\n }\n .numeric {\n text-align: right;\n padding-right: 15px;\n }\n</style>\n<table cellpadding=\"1\" border=\"1\" id=\"tableBC\" class=\"table-hover\" style=\"width: 100%;\">\n    <thead>\n      <tr>\n         <th>Slot</th>\n         <th>Slot 1-10</th> \n         <th>Slot 11-20</th>\n         <th>Slot 21-30</th>\n      </tr>\n    </thead>\n\t<tbody>\n\t\t<tr ng-repeat=\"row in msg.payload\" >\n\t\t\t<td contenteditable=\"false\">{{row[0]}}</td>\n\t\t\t<td contenteditable=\"false\">{{row[1]}}</td>\n\t\t\t<td contenteditable=\"false\">{{row[2]}}</td>\n\t\t\t<td contenteditable=\"false\">{{row[3]}}</td>\n\t\t</tr>\n\t</tbody>\n</table>\n\n<script>\n    var _storeScope;\n    \n    function testSend(obj, scope) {\n        console.log(\"In testit \" + obj);\n        scope.send({payload: obj});\n    }\n    \n    function sendObj(obj) {\n        console.log(\"Sending Object Raw \" + obj);\n        _storeScope.send(obj);\n    }\n    \n    (function(scope) {\n        var array = [];\n        var table = document.querySelector(\"#tableBC tbody\");\n        var rows = table.children;\n        for (var i = 0; i < rows.length; i++) {\n        \tvar fields = rows[i].children;\n            var rowArray = [];\n            for (var j = 0; j < fields.length; j++) {\n                rowArray.push(fields[j].innerHTML);\n            }\n            array.push(rowArray);\n        } \n        _storeScope = scope;\n        scope.$watch('msg', function(msg) {\n            if (msg) {\n                console.log(\"Clearing Last Scan\");\n            }\n        });\n    })(scope);\n</script>",
+        "storeOutMessages": false,
+        "fwdInMessages": false,
+        "templateScope": "local",
+        "x": 1600,
+        "y": 880,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cb7ea785.388ba8",
+        "type": "function",
+        "z": "48acc202.c19d3c",
+        "name": "Format Barcodes",
+        "func": "var running = flow.get(\"running\");\nvar slots = flow.get(\"slot\", \"file\");\n\nmsg.payload = [];\n\nmsg.payload[0] = [ \"10\", slots[9], slots[19], slots[29] ];\nmsg.payload[1] = [ \"9\", slots[8], slots[18], slots[28] ];\nmsg.payload[2] = [ \"8\", slots[7], slots[17], slots[27] ];\nmsg.payload[3] = [ \"7\", slots[6], slots[16], slots[26] ];\nmsg.payload[4] = [ \"6\", slots[5], slots[15], slots[25] ];\nmsg.payload[5] = [ \"5\", slots[4], slots[14], slots[24] ];\nmsg.payload[6] = [ \"4\", slots[3], slots[13], slots[23] ];\nmsg.payload[7] = [ \"3\", slots[2], slots[12], slots[22] ];\nmsg.payload[8] = [ \"2\", slots[1], slots[11], slots[21] ];\nmsg.payload[9] = [ \"1\", slots[0], slots[10], slots[20] ];\n\nreturn msg;\n\n//var msg2 = { \"payload\" : [] } ;\n\n//msg2.payload[0] = { \"id\": 0, \"slot\":\"10\", \"col1\":slots[9], \"col2\":slots[19], \"col3\":slots[29]} ;\n//msg2.payload[1] = { \"id\": 1, \"slot\":\"9\",  \"col1\":slots[8], \"col2\":slots[18], \"col3\":slots[28]} ;\n//msg2.payload[2] = { \"id\": 2, \"slot\":\"8\",  \"col1\":slots[7], \"col2\":slots[17], \"col3\":slots[27]} ;\n//msg2.payload[3] = { \"id\": 3, \"slot\":\"7\",  \"col1\":slots[6], \"col2\":slots[16], \"col3\":slots[26]} ;\n//msg2.payload[4] = { \"id\": 4, \"slot\":\"6\",  \"col1\":slots[5], \"col2\":slots[15], \"col3\":slots[25]} ;\n//msg2.payload[5] = { \"id\": 5, \"slot\":\"5\",  \"col1\":slots[4], \"col2\":slots[14], \"col3\":slots[24]} ;\n//msg2.payload[6] = { \"id\": 6, \"slot\":\"4\",  \"col1\":slots[3], \"col2\":slots[13], \"col3\":slots[23]} ;\n//msg2.payload[7] = { \"id\": 7, \"slot\":\"3\",  \"col1\":slots[2], \"col2\":slots[12], \"col3\":slots[22]} ;\n//msg2.payload[8] = { \"id\": 8, \"slot\":\"2\",  \"col1\":slots[1], \"col2\":slots[11], \"col3\":slots[21]} ;\n//msg2.payload[9] = { \"id\": 9, \"slot\":\"1\",  \"col1\":slots[0], \"col2\":slots[10], \"col3\":slots[20]} ;\n\n//return [ msg, msg2 ];",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1370,
+        "y": 900,
+        "wires": [
+            [
+                "1cf16d20.df02e3"
+            ]
+        ]
+    },
+    {
+        "id": "d9344e02.694fd",
+        "type": "inject",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "topic": "Start Up",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0.6",
+        "x": 1110,
+        "y": 900,
+        "wires": [
+            [
+                "cb7ea785.388ba8",
+                "2184b4c4.9178ac",
+                "753c4f36.ca3a3",
+                "6c6b8e61.544b9"
+            ]
+        ]
+    },
+    {
+        "id": "1afd9710.79fa19",
+        "type": "ui_button",
+        "z": "48acc202.c19d3c",
+        "name": "Next Slot",
+        "group": "90cb3ae0.c23638",
+        "order": 4,
+        "width": 1,
+        "height": 1,
+        "passthru": false,
+        "label": "",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "forward",
+        "payload": "next_slot",
+        "payloadType": "flow",
+        "topic": "dis/empty",
+        "x": 1240,
+        "y": 840,
+        "wires": [
+            [
+                "ddf1262e.4d0578"
+            ]
+        ]
+    },
+    {
+        "id": "ddf1262e.4d0578",
+        "type": "mqtt out",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "topic": "",
+        "qos": "",
+        "retain": "",
+        "broker": "ef0acdbc.0b948",
+        "x": 1390,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "b9f4b08d.b52bd",
+        "type": "function",
+        "z": "48acc202.c19d3c",
+        "name": "Next Slot?",
+        "func": "if (msg.payload) {\n    var next_slot = (parseInt(msg.payload) % 30 ) + 1;\n    var slots = flow.get(\"slot\",\"file\");\n    \n    // No next allowed if the next has a barcode \n    // already\n    if (!slots || slots[next_slot-1]) {\n         msg.enabled = false;\n        flow.set(\"next_slot\", 0);\n    } else {\n        msg.enabled = true;\n        flow.set(\"next_slot\", next_slot);\n    }\n} else {\n    msg.enabled = false;\n    flow.set(\"next_slot\", 0);\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1070,
+        "y": 840,
+        "wires": [
+            [
+                "1afd9710.79fa19"
+            ]
+        ]
+    },
+    {
+        "id": "adc706fa.e27c38",
+        "type": "change",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "enabled",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 840,
+        "y": 800,
+        "wires": [
+            [
+                "db5255ab.f7c5f8"
+            ]
+        ]
+    },
+    {
+        "id": "8c6e4762.1aa578",
+        "type": "change",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "enabled",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 880,
+        "y": 1000,
+        "wires": [
+            [
+                "e3a93bf8.bd64f8"
+            ]
+        ]
+    },
+    {
+        "id": "ac4c904e.eafc1",
+        "type": "switch",
+        "z": "48acc202.c19d3c",
+        "name": "next slot rdy?",
+        "property": "next_slot",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "neq",
+                "v": "0",
+                "vt": "num"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 910,
+        "y": 1140,
+        "wires": [
+            [
+                "22e7689b.7b92d8"
+            ]
+        ]
+    },
+    {
+        "id": "73f4d5ec.92c8cc",
+        "type": "mqtt out",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "topic": "dis/empty",
+        "qos": "",
+        "retain": "",
+        "broker": "ef0acdbc.0b948",
+        "x": 1320,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "22e7689b.7b92d8",
+        "type": "change",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "next_slot",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1100,
+        "y": 1140,
+        "wires": [
+            [
+                "73f4d5ec.92c8cc"
+            ]
+        ]
+    },
+    {
+        "id": "8839edfc.8ae1d",
+        "type": "batch",
+        "z": "48acc202.c19d3c",
+        "name": "Complete Update",
+        "mode": "interval",
+        "count": "30",
+        "overlap": 0,
+        "interval": "3",
+        "allowEmptySequence": false,
+        "topics": [],
+        "x": 1090,
+        "y": 160,
+        "wires": [
+            [
+                "c5299f79.df61f"
+            ]
+        ]
+    },
+    {
+        "id": "fc566e35.c0439",
+        "type": "switch",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "property": "slot",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "calib_slot",
+                "vt": "flow"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 830,
+        "y": 340,
+        "wires": [
+            [
+                "33a240e8.3f4e7",
+                "8d68f1b.31e351",
+                "99f44aed.cffe58",
+                "37255fcc.22dad",
+                "2712cab4.4d5f06",
+                "f2515690.dd66a8",
+                "4ca535bc.bb6cac",
+                "359eff48.62d32"
+            ]
+        ]
+    },
+    {
+        "id": "f69fddd7.d82e",
+        "type": "ui_numeric",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "label": "Current",
+        "tooltip": "",
+        "group": "d653fbe9.860e48",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "wrap": false,
+        "passthru": false,
+        "topic": "",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "2000",
+        "step": 1,
+        "x": 1740,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "33a240e8.3f4e7",
+        "type": "change",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.Current",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1500,
+        "y": 520,
+        "wires": [
+            [
+                "f69fddd7.d82e"
+            ]
+        ]
+    },
+    {
+        "id": "8d68f1b.31e351",
+        "type": "change",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.Power",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1500,
+        "y": 560,
+        "wires": [
+            [
+                "e7964b3a.856f28"
+            ]
+        ]
+    },
+    {
+        "id": "e7964b3a.856f28",
+        "type": "ui_numeric",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "label": "Power",
+        "tooltip": "",
+        "group": "d653fbe9.860e48",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "wrap": false,
+        "passthru": false,
+        "topic": "",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "10000",
+        "step": 1,
+        "x": 1730,
+        "y": 560,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "99f44aed.cffe58",
+        "type": "change",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.CurrentTotal",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1500,
+        "y": 600,
+        "wires": [
+            [
+                "4b7c7c6a.f108d4"
+            ]
+        ]
+    },
+    {
+        "id": "4b7c7c6a.f108d4",
+        "type": "ui_numeric",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "label": "CurrentTotal",
+        "tooltip": "",
+        "group": "d653fbe9.860e48",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "wrap": false,
+        "passthru": false,
+        "topic": "",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "2000",
+        "step": 1,
+        "x": 1750,
+        "y": 600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "37255fcc.22dad",
+        "type": "change",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.PowerTotal",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1500,
+        "y": 640,
+        "wires": [
+            [
+                "1c8c94c2.8e85eb"
+            ]
+        ]
+    },
+    {
+        "id": "1c8c94c2.8e85eb",
+        "type": "ui_numeric",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "label": "Power Total",
+        "tooltip": "",
+        "group": "d653fbe9.860e48",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "wrap": false,
+        "passthru": false,
+        "topic": "",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "2000",
+        "step": 1,
+        "x": 1750,
+        "y": 640,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2712cab4.4d5f06",
+        "type": "change",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.BatteryVoltage",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1500,
+        "y": 680,
+        "wires": [
+            [
+                "720fca5e.5ce3d4"
+            ]
+        ]
+    },
+    {
+        "id": "720fca5e.5ce3d4",
+        "type": "ui_numeric",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "label": "Voltage",
+        "tooltip": "",
+        "group": "d653fbe9.860e48",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "wrap": false,
+        "passthru": false,
+        "topic": "",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "4200",
+        "step": 1,
+        "x": 1740,
+        "y": 680,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f2515690.dd66a8",
+        "type": "change",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "msg.payload.BatteryVoltage - msg.payload.SocketLoss",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1500,
+        "y": 720,
+        "wires": [
+            [
+                "1c304190.fd14be"
+            ]
+        ]
+    },
+    {
+        "id": "1c304190.fd14be",
+        "type": "ui_numeric",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "label": "Socket Voltage",
+        "tooltip": "",
+        "group": "d653fbe9.860e48",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "wrap": false,
+        "passthru": false,
+        "topic": "",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "4200",
+        "step": 1,
+        "x": 1760,
+        "y": 720,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8b4483b7.6bfc4",
+        "type": "ui_numeric",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "label": "Slot Number",
+        "tooltip": "",
+        "group": "d653fbe9.860e48",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "wrap": true,
+        "passthru": false,
+        "topic": "",
+        "format": "{{value}}",
+        "min": 0,
+        "max": "30",
+        "step": 1,
+        "x": 1750,
+        "y": 480,
+        "wires": [
+            [
+                "69f4ab11.0c0b64"
+            ]
+        ]
+    },
+    {
+        "id": "69f4ab11.0c0b64",
+        "type": "change",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "calib_slot",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1990,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2184b4c4.9178ac",
+        "type": "change",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "calib_slot",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1500,
+        "y": 480,
+        "wires": [
+            [
+                "8b4483b7.6bfc4"
+            ]
+        ]
+    },
+    {
+        "id": "4e6cfe42.dc675",
+        "type": "ui_numeric",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "label": "Calibration Current",
+        "tooltip": "",
+        "group": "d653fbe9.860e48",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "wrap": false,
+        "passthru": false,
+        "topic": "",
+        "format": "{{value}}",
+        "min": "1000",
+        "max": "2500",
+        "step": 1,
+        "x": 1770,
+        "y": 440,
+        "wires": [
+            [
+                "df6b29cd.534c68"
+            ]
+        ]
+    },
+    {
+        "id": "753c4f36.ca3a3",
+        "type": "change",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "#:(file)::calib_current",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1500,
+        "y": 440,
+        "wires": [
+            [
+                "4e6cfe42.dc675"
+            ]
+        ]
+    },
+    {
+        "id": "df6b29cd.534c68",
+        "type": "change",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "#:(file)::calib_current",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 2000,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d05c6ded.c7385",
+        "type": "ui_button",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "group": "d653fbe9.860e48",
+        "order": 9,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Calibrate Current",
+        "tooltip": "Triggers the Discharger to calibrate a slot",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "calib_slot",
+        "payloadType": "flow",
+        "topic": "",
+        "x": 1770,
+        "y": 400,
+        "wires": [
+            [
+                "c2a12c85.c2c8"
+            ]
+        ]
+    },
+    {
+        "id": "4668b01b.299fe",
+        "type": "udp out",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "addr": "10.1.1.113",
+        "iface": "",
+        "port": "8888",
+        "ipv": "udp4",
+        "outport": "",
+        "base64": false,
+        "multicast": "false",
+        "x": 2360,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "c2a12c85.c2c8",
+        "type": "function",
+        "z": "48acc202.c19d3c",
+        "name": "Current Binary",
+        "func": "//typedef struct calibrationReq_t {\n//  uint32_t  hdr;\n//  uint8_t   slot;\n//  uint16_t  data;\n//}  __attribute__ ((packed));\n\n// if ( calib.hdr == 0xDEADBEEF && calib.slot <= POSITIONS ) {\n//      const slotPosition_t * pSlot = &slotPos[calib.slot-1];\n//      \n////      calibrationData_t data = { (pSlot->position | 0x80), calib.data };\n//\n//      // This is a voltage calibration.. not current.. mock position to zero\n//      if (calib.data > 4800 && calib.data <= 5200) {\n//        data.position = 0x80;\n //     }\n\nvar slot = flow.get(\"calib_slot\");\nvar crnt = flow.get(\"calib_current\",\"file\");\nvar b = Buffer.from([0xEF,0xBE,0xAD,0xDE,slot,(crnt & 0xFF),(crnt >> 8)]);\n \nmsg.payload = b;\n \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1980,
+        "y": 400,
+        "wires": [
+            [
+                "4668b01b.299fe",
+                "918afb2e.0d9778"
+            ]
+        ]
+    },
+    {
+        "id": "918afb2e.0d9778",
+        "type": "debug",
+        "z": "48acc202.c19d3c",
+        "name": "TrigCalibUDP",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 2330,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "7a3489cf.e31aa8",
+        "type": "ui_button",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "group": "d653fbe9.860e48",
+        "order": 9,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Calibrate ADC Vref",
+        "tooltip": "Triggers the Atmega to calibrate the Vref from external 2.048V source",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "calib_vref",
+        "payloadType": "flow",
+        "topic": "",
+        "x": 1770,
+        "y": 320,
+        "wires": [
+            [
+                "3c052ec8.218462"
+            ]
+        ]
+    },
+    {
+        "id": "6c6b8e61.544b9",
+        "type": "change",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "calib_vref",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1500,
+        "y": 360,
+        "wires": [
+            [
+                "e34e914f.fbf85"
+            ]
+        ]
+    },
+    {
+        "id": "31bb3411.d3eccc",
+        "type": "change",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "calib_vref",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1990,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3c052ec8.218462",
+        "type": "function",
+        "z": "48acc202.c19d3c",
+        "name": "Voltage Binary",
+        "func": "//typedef struct calibrationReq_t {\n//  uint32_t  hdr;\n//  uint8_t   slot;\n//  uint16_t  data;\n//}  __attribute__ ((packed));\n\n// if ( calib.hdr == 0xDEADBEEF && calib.slot <= POSITIONS ) {\n//      const slotPosition_t * pSlot = &slotPos[calib.slot-1];\n//      \n////      calibrationData_t data = { (pSlot->position | 0x80), calib.data };\n//\n//      // This is a voltage calibration.. not current.. mock position to zero\n//      if (calib.data > 4800 && calib.data <= 5200) {\n//        data.position = 0x80;\n //     }\n\nvar slot = flow.get(\"calib_slot\");\nvar vref = flow.get(\"calib_vref\");\nvar b = Buffer.from([0xEF,0xBE,0xAD,0xDE,slot,(vref & 0xFF),(vref >> 8)]);\n \nmsg.payload = b;\n \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1980,
+        "y": 320,
+        "wires": [
+            [
+                "4668b01b.299fe",
+                "918afb2e.0d9778"
+            ]
+        ]
+    },
+    {
+        "id": "e34e914f.fbf85",
+        "type": "ui_text_input",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "label": "Measured Vcc mV",
+        "tooltip": "",
+        "group": "d653fbe9.860e48",
+        "order": 11,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "mode": "number",
+        "delay": "2000",
+        "topic": "",
+        "x": 1770,
+        "y": 360,
+        "wires": [
+            [
+                "31bb3411.d3eccc"
+            ]
+        ]
+    },
+    {
+        "id": "a12fc29f.72018",
+        "type": "ui_button",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "group": "d653fbe9.860e48",
+        "order": 9,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Init RTC",
+        "tooltip": "Triggers ESP32 to set the RTC and begin the 1Hz output signal",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "date",
+        "topic": "",
+        "x": 1740,
+        "y": 280,
+        "wires": [
+            [
+                "3590c11f.87833e"
+            ]
+        ]
+    },
+    {
+        "id": "3590c11f.87833e",
+        "type": "function",
+        "z": "48acc202.c19d3c",
+        "name": "Time Sync",
+        "func": "// Packet 0xDE0000AD, uint32_t\n\nvar time = parseInt(msg.payload);\n\nvar b = Buffer.from([0xAD,0x00,0x00,0xDE,\n(time & 0xFF),\n((time >> 8) & 0xFF),\n((time >> 16) & 0xFF),\n((time >> 24) & 0xFF)]);\n \nmsg.payload = b;\n \nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 1970,
+        "y": 280,
+        "wires": [
+            [
+                "918afb2e.0d9778",
+                "4668b01b.299fe"
+            ]
+        ]
+    },
+    {
+        "id": "4ca535bc.bb6cac",
+        "type": "change",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.deviceTime",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1500,
+        "y": 760,
+        "wires": [
+            [
+                "eba4763e.2fa378"
+            ]
+        ]
+    },
+    {
+        "id": "eba4763e.2fa378",
+        "type": "ui_text_input",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "label": "Device Time",
+        "tooltip": "",
+        "group": "d653fbe9.860e48",
+        "order": 11,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "mode": "number",
+        "delay": "2000",
+        "topic": "",
+        "x": 1750,
+        "y": 760,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3bf94e87.4d03d2",
+        "type": "ui_text_input",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "label": "Sample Total",
+        "tooltip": "",
+        "group": "d653fbe9.860e48",
+        "order": 11,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "mode": "number",
+        "delay": "2000",
+        "topic": "",
+        "x": 1750,
+        "y": 800,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "359eff48.62d32",
+        "type": "change",
+        "z": "48acc202.c19d3c",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.sampleTotal",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1500,
+        "y": 800,
+        "wires": [
+            [
+                "3bf94e87.4d03d2"
+            ]
+        ]
+    },
+    {
+        "id": "ef0acdbc.0b948",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "Home",
+        "broker": "mqtt.local.net",
+        "port": "8883",
+        "tls": "60af2ad7.3743b4",
+        "clientid": "",
+        "usetls": true,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "b62ae1a6.6cb94",
+        "type": "influxdb",
+        "z": "",
+        "hostname": "influxdb.local.net",
+        "port": "8086",
+        "protocol": "http",
+        "database": "Discharger",
+        "name": "",
+        "usetls": false,
+        "tls": "60af2ad7.3743b4"
+    },
+    {
+        "id": "90cb3ae0.c23638",
+        "type": "ui_group",
+        "z": "",
+        "name": "Scanner",
+        "tab": "ac3318c6.fe90c8",
+        "order": 1,
+        "disp": false,
+        "width": "7",
+        "collapse": false
+    },
+    {
+        "id": "f66db85d.596c58",
+        "type": "ui_group",
+        "z": "",
+        "name": "Manual",
+        "tab": "6c4deba1.314404",
+        "order": 1,
+        "disp": false,
+        "width": "7",
+        "collapse": false
+    },
+    {
+        "id": "d653fbe9.860e48",
+        "type": "ui_group",
+        "z": "",
+        "name": "test",
+        "tab": "87a81cc7.b4f2b",
+        "order": 1,
+        "disp": true,
+        "width": "7",
+        "collapse": false
+    },
+    {
+        "id": "60af2ad7.3743b4",
+        "type": "tls-config",
+        "z": "",
+        "name": "",
+        "cert": "",
+        "key": "",
+        "ca": "",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "servername": "",
+        "verifyservercert": false
+    },
+    {
+        "id": "ac3318c6.fe90c8",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Slot Scanner",
+        "icon": "dashboard",
+        "order": 2,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "6c4deba1.314404",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Slot Audit",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "87a81cc7.b4f2b",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Slot Info",
+        "icon": "dashboard",
+        "order": 3,
+        "disabled": false,
+        "hidden": false
+    }
+]
