@@ -4,6 +4,7 @@
 *.SchDoc.Zip
 *.SchDocPreview
 *.PrjPcb.Zip
+*.SchLib.Zip
 *.LOG
 schematics/atmega_discharger_15way_slave/DizCharger_RTC_time_base.SchDoc
 schematics/atmega_discharger_15way_slave/DizCharger_atmega_arduino_slave.SchDoc
